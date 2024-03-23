@@ -13,7 +13,7 @@
         }
         .header {
             width: 300px;
-            height: 400px;
+            height: 200px;
             float: left;
             background: #f3f3f3;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -22,18 +22,19 @@
         }
         .chart-container {
             margin-left: 325px;
-            height: 400px;
+            height: 200px;
             border: 1px solid #ddd;
         }
         #calendar {
             font-family: Arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
+            font-size: .8em;
         }
         #calendar td, #calendar th {
             border: 1px solid #ddd;
             text-align: center;
-            padding: 8px;
+            padding: 1px;
         }
         #calendar th {
             background-color: #c2c2c2;
@@ -45,7 +46,7 @@
         iframe {
             width: 100%;
             border: 1px solid #ddd;
-            height: 800px;
+            height: 600px;
         }
         
     </style>
@@ -54,11 +55,9 @@
     <div class="topbar" width="100%">
         <div class="header">
             <div class="location" id="location">Loading location...</div>
-            <div class="time" id="time">00:00:00</div>
-            <br>
-            <div class="cal" id="caldiv"><table id="calendar"></table></div>
-            <br>
+            <!-- <div class="time" id="time">00:00:00</div> -->
             <div class="date" id="date">Day Month Year</div>
+            <div class="cal" id="caldiv"><table id="calendar"></table></div>
         </div>
 
         <div class="chart-container">
@@ -91,7 +90,7 @@
                 });
 
             document.getElementById('date').textContent = dateString;
-            document.getElementById('time').textContent = timeString;
+            // document.getElementById('time').textContent = timeString;
         }
         updateTime();
         setInterval(updateTime, 1000);
@@ -164,6 +163,7 @@
         }
     
         async function fetchWeather(lat, lon) {
+            console.log("Fetch weather @ ", lat, " ", lon);
             const gridPointResponse = await fetch(`https://api.weather.gov/points/${lat},${lon}`);
             const gridPointData = await gridPointResponse.json();
             document.getElementById('location').textContent = `${gridPointData.properties.relativeLocation.properties.city}, ${gridPointData.properties.relativeLocation.properties.state}`;
